@@ -1,14 +1,14 @@
 asgiref==3.3.1
 certifi==2020.12.5
 chardet==4.0.0
-defusedxml==0.6.0
+defusedxml==0.7.1
 diff-match-patch==20200713
 Django==3.1.7
 django-import-export==2.5.0
 djangorestframework==3.12.2
 et-xmlfile==1.0.1
 future==0.18.2
-idna==2.10
+idna==3.1
 jdcal==1.4.1
 MarkupPy==1.14
 oauthlib==3.1.0

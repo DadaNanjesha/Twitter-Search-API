@@ -8,7 +8,7 @@ from import_export.admin import ImportExportModelAdmin
 
 
 class TwitterDataAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    list_display = ("id", "user", "url", "created_at")
+    list_display = ("id", "user", "url", 'retweet_count', 'favorite_count', "created_at")
     list_per_page = 10
     search_fields = ("id", "user")
     list_display_links = ("id", "user")

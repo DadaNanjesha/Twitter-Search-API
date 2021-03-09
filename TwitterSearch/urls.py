@@ -19,6 +19,7 @@ from search import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('search/', views.search_tweet, name='search_tweet'),
+    path('twitterDataStore/', views.search_tweet, name='search_tweet'),
     path('twitterSearch/', views.TwitterSearchList.as_view(), name='TwitterSearchList'),
+    path('twitterDataExport/', views.twitter_data_export, name='ExportCSVTwitter'),
 ]

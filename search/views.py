@@ -8,18 +8,18 @@ This file contains all the Django REST Framework APIs for search_tweet and Twitt
 This script requires that `twitter` ,`json`, `rest_framework`, `HttpResponse`, `django`, `datetime` be
 installed within the Python environment you are running this script in.
 """
-
+import csv
 import datetime as dt
 import json
-
 from django.http import HttpResponse
 from rest_framework import status, generics
 from rest_framework.decorators import api_view
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.views import APIView
 from twitter import Twitter, OAuth
-
 from .models import TwitterData
 from .serializers import TwitterSearchSerializer
+from rest_framework import filters
 
 date_format = '%a %b %d %H:%M:%S %z %Y'
 application_type = 'application/json'
@@ -29,7 +29,7 @@ application_type = 'application/json'
 def search_tweet(request):
     """
     API 1 to trigger a twitter search for recent high traffic events. (e.g. #ElectionDay,
-    #Elections2020, #TRUMP2020Landslide, #BidenHarris2020 etc were high traffic
+    #Elections2020, #TRUMP202s0Landslide, #BidenHarris2020 etc were high traffic
     hashtags during the US Presidential elections 2020).
         a. Trigger search for keyword sent in request
         b. You can use libraries for twitter search
@@ -102,12 +102,12 @@ class TwitterSearchListPagination(PageNumberPagination):
     TwitterSearchListPagination Class is used to get the Pagination for API
 
     """
-    page_size = 2
+    page_size = 5
     page_size_query_param = 'page_size'
     max_page_size = 100
 
 
-class TwitterSearchList(generics.ListAPIView):
+class TwitterSearchList(generics.ListCreateAPIView):
     """
     API 2 to return stored tweets and their metadata based on applied filters/search.
         a. API should be paginated
@@ -128,6 +128,24 @@ class TwitterSearchList(generics.ListAPIView):
     :param request: ListAPIView
     :rtype: Response
     """
+    # @ for exact search , DRF defaults icontains, ^ istartswith
+    # search_fields = ['text', '^user', 'lang', '@retweet_count', '@favorite_count']
+    search_fields = ['id', 'text', '^user', 'lang', 'retweet_count', 'favorite_count']
+    filter_backends = (filters.SearchFilter,)
     queryset = TwitterData.objects.all()
     serializer_class = TwitterSearchSerializer
     pagination_class = TwitterSearchListPagination
+
+
+def twitter_data_export(request):
+    import pandas as pd
+    df = pd.DataFrame({'id': [str(data.id) for data in TwitterData.objects.all()],
+                       'text': [data.text for data in TwitterData.objects.all()],
+                       'user': [data.user for data in TwitterData.objects.all()],
+                       'lang': [data.lang for data in TwitterData.objects.all()],
+                       'url': [str(data.url) for data in TwitterData.objects.all()]
+                       }
+                      )
+    df.to_csv('./twitter.csv', encoding='UTF-8', index=False)
+    result = {'msg': 'twitter.csv file created successfully'}
+    return HttpResponse(json.dumps(result), content_type=application_type, status=status.HTTP_200_OK)
