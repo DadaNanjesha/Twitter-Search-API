@@ -130,7 +130,7 @@ class TwitterSearchList(generics.ListCreateAPIView):
     """
     # @ for exact search , DRF defaults icontains, ^ istartswith
     # search_fields = ['text', '^user', 'lang', '@retweet_count', '@favorite_count']
-    search_fields = ['id', 'text', '^user', 'lang', 'retweet_count', 'favorite_count']
+    search_fields = ['id', 'text', '$user', 'lang', 'retweet_count', 'favorite_count']
     filter_backends = (filters.SearchFilter,)
     queryset = TwitterData.objects.all()
     serializer_class = TwitterSearchSerializer
