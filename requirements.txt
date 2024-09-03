@@ -21,7 +21,7 @@ odfpy==1.4.1
 openpyxl==3.0.6
 pandas==1.2.3
 python-dateutil==2.8.1
-python-twitter==3.5
+python-twitter
 pytz==2021.1
 PyYAML==5.4.1
 requests==2.32.3
