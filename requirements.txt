@@ -6,8 +6,8 @@ defusedxml==0.7.1
 diff-match-patch==20200713
 Django==3.1.7
 django-admin-export-action==0.3.1
-django-extensions==3.2.3
-django-import-export==2.5.0
+django-extensions
+django-import-export
 djangorestframework==3.12.2
 et-xmlfile==1.0.1
 future==0.18.3
