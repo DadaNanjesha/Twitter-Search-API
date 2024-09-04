@@ -27,7 +27,12 @@ All below problem statements are covered:
   - Example endpoint:
     - `http://127.0.0.1:8000/twitterDataExport/`
 
-Links are provided to run the API operations.
+## Project Structure
+
+![Twitter Search API Logo](template/images/Project_Structure.jpg)
+
+
+- Links are provided to run the API operations.
 
 ## Installation
 
