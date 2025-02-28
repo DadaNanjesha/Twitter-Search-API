@@ -1,4 +1,4 @@
-# Twitter Search API
+# Twitter Search API (Django project)
 
 A **lightweight and efficient** Twitter Search API built with **Python, Django, and Django REST Framework**. This project utilizes the **Twitter Search API** to fetch, store, filter, and export tweets related to trending events and hashtags.
 
